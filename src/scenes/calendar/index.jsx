@@ -17,7 +17,7 @@ const Calendar = () => {
 	const handleDateClick = (selected) => {
 		const title = prompt("Please enter a new title for your event");
 		const calendarApi = selected.view.calendar;
-		calendarApi.unselected();
+		calendarApi.unselect();
 
 		if (title) {
 			calendarApi.addEvent({
@@ -25,13 +25,13 @@ const Calendar = () => {
 				title,
 				start: selected.startStr,
 				end: selected.endStr,
-				allDady: selected.allDay,
+				allDay: selected.allDay,
 			});
 		}
 	};
 
 	const handleEventClick = (selected) => {
-		if (window.confirm(`Are you sure you want to delete the event '${selected.event.title}`)) {
+		if (window.confirm(`Are you sure you want to delete the event '${selected.event.title}'`)) {
 			selected.event.remove();
 		}
 	};
@@ -39,6 +39,7 @@ const Calendar = () => {
 	return (
 		<Box m="20px">
 			<Header title="CALENDAR" subtitle="Full Calendar Interactive Page" />
+
 			<Box display="flex" justifyContent="space-between">
 				{/* CALENDAR SIDEBAR */}
 				<Box flex="1 1 20%" backgroundColor={colors.primary[400]} p="15px" borderRadius="4px">
@@ -47,7 +48,11 @@ const Calendar = () => {
 						{currentEvents.map((event) => (
 							<ListItem
 								key={event.id}
-								sx={{ backgroundColor: colors.greenAccent[500], margin: "10px 0", borderRadius: "2px" }}
+								sx={{
+									backgroundColor: colors.greenAccent[500],
+									margin: "10px 0",
+									borderRadius: "2px",
+								}}
 							>
 								<ListItemText
 									primary={event.title}
@@ -65,13 +70,14 @@ const Calendar = () => {
 						))}
 					</List>
 				</Box>
+
 				{/* CALENDAR */}
-				<Box flex=" 1 1 100%" ml="15px">
+				<Box flex="1 1 100%" ml="15px">
 					<FullCalendar
 						height="75vh"
 						plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin]}
 						headerToolbar={{
-							left: "prev,next,today",
+							left: "prev,next today",
 							center: "title",
 							right: "dayGridMonth,timeGridWeek,timeGridDay,listMonth",
 						}}
@@ -84,8 +90,16 @@ const Calendar = () => {
 						eventClick={handleEventClick}
 						eventsSet={(events) => setCurrentEvents(events)}
 						initialEvents={[
-							{ id: "1234", title: "All-day event", date: "2022-09-14" },
-							{ id: "5678", title: "Timed Event", date: "2022-09-28" },
+							{
+								id: "12315",
+								title: "All-day event",
+								date: "2022-09-14",
+							},
+							{
+								id: "5123",
+								title: "Timed event",
+								date: "2022-09-28",
+							},
 						]}
 					/>
 				</Box>
